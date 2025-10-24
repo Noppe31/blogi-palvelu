@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Blogi — Siisti yksinkertainen blogisivusto</title>
+        <link rel="stylesheet" href="styles.css">
+        <meta name="description" content="Siisti ja yksinkertainen blogisivusto — esimerkkikirjoituksia ja selkeä asettelu.">
+    </head>
+    <body>
+            <header class="site-header">
+                <div class="container">
+                    <h1 class="site-title">Blogi</h1>
+                    <p class="site-subtitle">Siisti ja yksinkertainen blogisivusto</p>
+                    <p style="margin-top:0.6rem"><a href="create.html" class="read-more">Lisää oma blogi</a></p>
+                </div>
+            </header>
+
+            <main class="container">
+                <!-- Posts will be rendered by scripts.js (static posts + user posts from localStorage) -->
+                <section class="posts" id="posts"></section>
+            </main>
+
+            <footer class="site-footer">
+                <div class="container">
+                    <p>© 2025 Blogipalvelu — Yksinkertainen blogi</p>
+                </div>
+            </footer>
+
+            <script src="scripts.js"></script>
+        </body>
+        </html>

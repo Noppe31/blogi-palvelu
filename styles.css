@@ -1,0 +1,69 @@
+:root{
+  --bg:#f7f9fb;
+  --card:#ffffff;
+  --muted:#6b7280;
+  --accent:#0b74de;
+  --max-width:1000px;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background:var(--bg);
+  color:#111827;
+  line-height:1.5;
+}
+
+.container{
+  width:90%;
+  max-width:var(--max-width);
+  margin:0 auto;
+  padding:2rem 0;
+}
+
+.site-header{
+  background:linear-gradient(90deg,#eef6ff,#ffffff);
+  border-bottom:1px solid rgba(15,23,42,0.04);
+}
+.site-title{margin:0;font-size:1.6rem}
+.site-subtitle{margin:0.25rem 0 0;color:var(--muted);font-size:0.95rem}
+
+.posts{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:1rem;
+  margin-top:1.25rem;
+}
+
+.post-card{background:var(--card);padding:1.25rem;border-radius:8px;box-shadow:0 1px 0 rgba(15,23,42,0.03)}
+.post-card h2{margin:0 0 0.35rem;font-size:1.15rem}
+.post-card a{color:inherit;text-decoration:none}
+.post-card a:hover{text-decoration:underline;color:var(--accent)}
+.meta{color:var(--muted);font-size:0.9rem;margin:0 0 0.5rem}
+.excerpt{margin:0 0 0.75rem;color:#374151}
+.read-more{font-weight:600;color:var(--accent);text-decoration:none}
+
+.site-footer{padding:1.25rem 0;border-top:1px solid rgba(15,23,42,0.04);color:var(--muted);font-size:0.95rem}
+
+@media(min-width:700px){
+  .posts{grid-template-columns:repeat(2,1fr)}
+}
+
+/* Post page tweaks */
+.post-content{background:var(--card);padding:1.5rem;border-radius:8px}
+.post-content h1{margin-top:0}
+.post-back{display:inline-block;margin-bottom:0.75rem;color:var(--accent);text-decoration:none}
+
+/* Form / create page */
+.form-card{background:var(--card);padding:1.25rem;border-radius:8px}
+.form-field{display:block;margin-bottom:0.75rem}
+.form-field label{display:block;margin-bottom:0.25rem;font-weight:600}
+.form-field input[type="text"],.form-field textarea{width:100%;padding:0.5rem;border:1px solid #e6e9ee;border-radius:6px}
+.form-actions{margin-top:0.75rem}
+.btn{display:inline-block;padding:0.5rem 0.9rem;border-radius:6px;background:var(--accent);color:white;text-decoration:none}
+.btn-muted{background:#e5eef8;color:var(--accent);margin-left:0.5rem}
+
+/* small tag for user posts */
+.tag-user{display:inline-block;background:#eef2ff;color:#0b3d9b;padding:0.15rem 0.4rem;border-radius:4px;font-size:0.8rem;margin-left:0.5rem}

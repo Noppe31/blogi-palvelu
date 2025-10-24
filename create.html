@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Lisää blogi — Blogi</title>
+  <link rel="stylesheet" href="styles.css">
+  <meta name="description" content="Lisää uusi blogikirjoitus">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1 class="site-title">Lisää blogi</h1>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="form-card">
+      <form id="create-form">
+        <div class="form-field">
+          <label for="title">Otsikko</label>
+          <input id="title" name="title" type="text" required>
+        </div>
+
+        <div class="form-field">
+          <label for="author">Tekijä</label>
+          <input id="author" name="author" type="text" value="Anonyymi">
+        </div>
+
+        <div class="form-field">
+          <label for="excerpt">Lyhyt kuvaus</label>
+          <input id="excerpt" name="excerpt" type="text">
+        </div>
+
+        <div class="form-field">
+          <label for="content">Sisältö</label>
+          <textarea id="content" name="content" rows="8" required></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn" type="submit">Lisää julkaisu</button>
+          <a class="btn btn-muted" href="index.html">Peruuta</a>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">© 2025 Blogi</div>
+  </footer>
+
+  <script src="scripts.js"></script>
+  <script>
+    document.getElementById('create-form').addEventListener('submit', function(e){
+      e.preventDefault();
+      const title = document.getElementById('title').value.trim();
+      const author = document.getElementById('author').value.trim() || 'Anonyymi';
+      const excerpt = document.getElementById('excerpt').value.trim();
+      const content = document.getElementById('content').value.trim();
+
+      if(!title || !content){
+        alert('Kirjoita otsikko ja sisältö.');
+        return;
+      }
+
+      const posts = window.__blogi.getUserPosts();
+      const id = String(Date.now());
+      // use shared formatter (dd/mm/YYYY)
+      const date = (window.__blogi && window.__blogi.formatDate)
+        ? window.__blogi.formatDate(new Date())
+        : (new Date()).toLocaleDateString('fi-FI').replace(/\./g,'/').replace(/\s/g,'');
+
+      posts.push({id,title,author,excerpt,content,date});
+      window.__blogi.saveUserPosts(posts);
+
+      // Redirect to viewer for the new post
+      location.href = `viewer.html?post=${encodeURIComponent(id)}`;
+    });
+  </script>
+</body>
+</html>

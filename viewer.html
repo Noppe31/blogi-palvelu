@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Julkaisu — Blogi</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1 class="site-title">Blogi</h1>
+    </div>
+  </header>
+
+  <main class="container">
+    <a class="post-back" href="index.html">← Takaisin</a>
+    <div id="post-area">
+      <p>Ladataan...</p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">© 2025 Blogi</div>
+  </footer>
+
+  <script src="scripts.js"></script>
+  <script>
+    function getQueryParam(name){
+      const params = new URLSearchParams(location.search);
+      return params.get(name);
+    }
+
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const id = getQueryParam('post');
+      const posts = window.__blogi.getUserPosts();
+      const post = posts.find(p => String(p.id) === String(id));
+
+      const area = document.getElementById('post-area');
+      if(!post){
+        area.innerHTML = '<p>Julkaisua ei löytynyt. Se voidaan lisätä etusivulta.</p>';
+        return;
+      }
+
+      const formattedDate = (window.__blogi && window.__blogi.formatDate) ? window.__blogi.formatDate(post.date) : post.date;
+      const html = `
+        <article class="post-content">
+          <h1>${escapeHtml(post.title)}</h1>
+          <p class="meta">${formattedDate} · Tekijä: ${escapeHtml(post.author)}</p>
+          <div>${nl2br(escapeHtml(post.content))}</div>
+        </article>
+      `;
+
+      area.innerHTML = html;
+    });
+
+    function escapeHtml(s){
+      return String(s)
+        .replace(/&/g,'&amp;')
+        .replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;')
+        .replace(/'/g,'&#039;');
+    }
+
+    function nl2br(s){
+      return s.replace(/\n/g,'<br>');
+    }
+  </script>
+</body>
+</html>
