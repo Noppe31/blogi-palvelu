@@ -8,11 +8,25 @@
   <meta name="description" content="Lisää uusi blogikirjoitus">
 </head>
 <body>
-  <header class="site-header">
-    <div class="container">
-      <h1 class="site-title">Lisää blogi</h1>
-    </div>
-  </header>
+  <!-- ...existing code... -->
+<header class="site-header">
+  <div class="container nav-container">
+    <a class="site-brand" href="index.html">
+      <span class="logo">Blogi</span>
+      <span class="site-subtitle">Lisää uusi blogikirjoitus</span>
+    </a>
+
+    <button class="nav-toggle" aria-expanded="false" aria-label="Avaa valikko">
+      <span class="hamburger"></span>
+    </button>
+
+    <nav class="nav-links" id="main-nav">
+      <a href="index.html">Etusivu</a>
+      <a href="create.html" class="btn btn-small">Lisää julkaisu</a>
+    </nav>
+  </div>
+</header>
+<!-- ...existing code... -->
 
   <main class="container">
     <div class="form-card">

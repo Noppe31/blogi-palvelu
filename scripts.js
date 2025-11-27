@@ -134,3 +134,32 @@ window.__blogi = {
 
 // expose formatter
 window.__blogi.formatDate = formatDate;
+
+
+// --- Lisätty: mobiili-valikon avaus/painike ---
+function initNav(){
+  const btn = document.querySelector('.nav-toggle');
+  const nav = document.getElementById('main-nav');
+  if(!btn || !nav) return;
+  btn.addEventListener('click', () => {
+    const open = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!open));
+    nav.classList.toggle('open', !open);
+  });
+
+  // korosta aktiivinen
+  document.querySelectorAll('.nav-links a').forEach(a=>{
+    try{
+      const aPath = a.getAttribute('href').split('/').pop();
+      const current = location.pathname.split('/').pop();
+      if(aPath && aPath === current) a.classList.add('active');
+    }catch(e){}
+  });
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderPosts();
+  initNav();
+});
+

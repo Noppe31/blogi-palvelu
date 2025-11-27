@@ -3,18 +3,31 @@
 <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Blogi — Siisti yksinkertainen blogisivusto</title>
+        <title>Blogi</title>
         <link rel="stylesheet" href="styles.css">
         <meta name="description" content="Siisti ja yksinkertainen blogisivusto — esimerkkikirjoituksia ja selkeä asettelu.">
     </head>
     <body>
-            <header class="site-header">
-                <div class="container">
-                    <h1 class="site-title">Blogi</h1>
-                    <p class="site-subtitle">Siisti ja yksinkertainen blogisivusto</p>
-                    <p style="margin-top:0.6rem"><a href="create.html" class="read-more">Lisää oma blogi</a></p>
-                </div>
-            </header>
+    <!-- ...existing code... -->
+    <header class="site-header">
+        <div class="container nav-container">
+            <a class="site-brand" href="index.html">
+            <span class="logo">Blogi</span>
+            <span class="site-subtitle">Etusivu</span>
+        </a>
+
+        <button class="nav-toggle" aria-expanded="false" aria-label="Avaa valikko">
+        <span class="hamburger"></span>
+        </button>
+
+        <nav class="nav-links" id="main-nav">
+            <a href="index.html">Etusivu</a>
+            <a href="create.html" class="btn btn-small">Lisää julkaisu</a>
+            <a href="#" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});return false;">Alas</a>
+        </nav>
+    </div>
+</header>
+<!-- ...existing code... -->
 
             <main class="container">
                 <!-- Posts will be rendered by scripts.js (static posts + user posts from localStorage) -->
@@ -23,10 +36,11 @@
 
             <footer class="site-footer">
                 <div class="container">
-                    <p>© 2025 Blogipalvelu — Yksinkertainen blogi</p>
+                    <p>© 2025 Blogipalvelu</p>
                 </div>
             </footer>
 
             <script src="scripts.js"></script>
         </body>
         </html>
+
