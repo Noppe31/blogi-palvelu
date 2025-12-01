@@ -18,6 +18,12 @@
     <div id="post-area">
       <p>Ladataan...</p>
     </div>
+
+    <!--  Lisää Muokka + Posti napit -->
+    <div class="post-actions" style="margin-top:20px; display:flex; gap:10px;">
+      <a class="btn" id="edit-post">Muokkaa</a>
+      <button class="btn btn-danger" id="delete-post">Poista</button>
+    </div>
   </main>
 
   <footer class="site-footer">
@@ -26,6 +32,8 @@
 
   <script src="scripts.js"></script>
   <script>
+
+    //  Hakee ID:n osoitteesta
     function getQueryParam(name){
       const params = new URLSearchParams(location.search);
       return params.get(name);
@@ -37,13 +45,17 @@
       const post = posts.find(p => String(p.id) === String(id));
 
       const area = document.getElementById('post-area');
+
       if(!post){
         area.innerHTML = '<p>Julkaisua ei löytynyt. Se voidaan lisätä etusivulta.</p>';
         return;
       }
 
-      const formattedDate = (window.__blogi && window.__blogi.formatDate) ? window.__blogi.formatDate(post.date) : post.date;
-      const html = `
+      const formattedDate = (window.__blogi && window.__blogi.formatDate)
+        ? window.__blogi.formatDate(post.date)
+        : post.date;
+
+      area.innerHTML = `
         <article class="post-content">
           <h1>${escapeHtml(post.title)}</h1>
           <p class="meta">${formattedDate} · Tekijä: ${escapeHtml(post.author)}</p>
@@ -51,7 +63,19 @@
         </article>
       `;
 
-      area.innerHTML = html;
+      //  Muokkaus nappi
+      document.getElementById("edit-post").href = `post.html?id=${post.id}`;
+
+      //  Poisto nappi
+      document.getElementById("delete-post").onclick = () => {
+        if(confirm("Haluatko varmasti poistaa tämän julkaisun?")) {
+          const index = posts.findIndex(p => p.id === post.id);
+          posts.splice(index, 1);
+          window.__blogi.saveUserPosts(posts);
+          location.href = "index.html";
+        }
+      };
+
     });
 
     function escapeHtml(s){
@@ -66,6 +90,8 @@
     function nl2br(s){
       return s.replace(/\n/g,'<br>');
     }
+
   </script>
+
 </body>
 </html>
