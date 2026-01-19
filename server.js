@@ -1,18 +1,22 @@
-const fs = require("fs");
-const express = require("express");
-const app = express();
+jest.mock('fs', () => ({
+  existsSync: jest.fn(),
+  writeFileSync: jest.fn()
+}));
+
+const request = require('supertest');
+const fs = require('fs');
+const app = require('./server');
 
 app.use(express.urlencoded({ extended: true }));
-app.use('/posts', express.static(__dirname + '/posts')); // uusi polku
+app.use('/posts', express.static(__dirname + '/posts'));
 
 app.post("/newpost", (req, res) => {
-    let number = 1;
-    while (fs.existsSync(`posts/post${number}.html`)) number++; // tarkista oikea polku
+  let number = 1;
+  while (fs.existsSync(`posts/post${number}.html`)) number++;
 
-    const title = req.body.title;
-    const content = req.body.content;
+  const { title, content } = req.body;
 
-    const html = `
+  const html = `
 <!DOCTYPE html>
 <html lang="fi">
 <head>
@@ -25,10 +29,16 @@ app.post("/newpost", (req, res) => {
 </body>
 </html>`;
 
-    fs.writeFileSync(`posts/post${number}.html`, html);
-    console.log("Luotu:", `posts/post${number}.html`);
+  fs.writeFileSync(`posts/post${number}.html`, html);
 
-    res.redirect(`/posts/post${number}.html`);
+  res.redirect(`/posts/post${number}.html`);
 });
 
-app.listen(3000, () => console.log("Palvelin käynnissä → http://localhost:3000"));
+/* ✅ IMPORTANT */
+if (require.main === module) {
+  app.listen(3000, () =>
+    console.log("Palvelin käynnissä → http://localhost:3000")
+  );
+}
+
+module.exports = app;
